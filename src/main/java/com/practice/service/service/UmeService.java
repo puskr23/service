@@ -20,7 +20,7 @@ List<User> user=new ArrayList<User>();
 	private UserRepository repository;
 	
 	Map<Integer, String> map = new HashMap<Integer, String>();
-	Map<Integer, Integer> map2 = new HashMap<Integer, Integer>();
+	Map<String, Integer> map2 = new HashMap<String, Integer>();
 	int totalSend = 0;
 	
 	public UmeService() {
@@ -30,11 +30,11 @@ List<User> user=new ArrayList<User>();
 		map.put(3, "2762212814451KDS");
 		map.put(4, "0654095798651KDS");
 		map.put(5, "7891132354851KDS");
-		map2.put(1, 20);
-		map2.put(2, 12);
-		map2.put(3, 10);
-		map2.put(4, 11);
-		map2.put(5, 22);
+		map2.put("5815044032551KDS", 20);
+		map2.put("8991132354851KDS", 12);
+		map2.put("2762212814451KDS", 10);
+		map2.put("0654095798651KDS", 11);
+		map2.put("7891132354851KDS", 22);
 		
 		
 	}
@@ -63,7 +63,7 @@ List<User> user=new ArrayList<User>();
             System.out.println(map); 
             System.out.println(map2);
 		
-		for (Map.Entry m : map.entrySet()) {// Travesing service map
+		for (Map.Entry m : map.entrySet()) {// Traversing service map
 			for (Map.Entry m2 : map2.entrySet()) {// Travesing Limit map
 				if (m.getKey().equals(m2.getKey())) {//compairing the servce map index with limit map 
 					aClubUnique=(String) m.getValue();//getting club code
