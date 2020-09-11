@@ -65,7 +65,7 @@ List<User> user=new ArrayList<User>();
 		
 		for (Map.Entry m : map.entrySet()) {// Traversing service map
 			for (Map.Entry m2 : map2.entrySet()) {// Travesing Limit map
-				if (m.getValue().equals(m2.getKey())) {//compairing the servce map index with limit map 
+				if (((String) m.getValue()).equalsIgnoreCase((String) m2.getKey())) {//compairing the servce map index with limit map 
 					aClubUnique=(String) m.getValue();//getting club code
 					user=repository.findByaClubUnique(aClubUnique);
 					Collections.shuffle(user);//shuffeling the user for random select 
