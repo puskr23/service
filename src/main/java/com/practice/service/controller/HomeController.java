@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practice.service.dao.UserRepository;
 import com.practice.service.entity.User;
 import com.practice.service.service.UmeService;
 
@@ -16,6 +17,9 @@ import com.practice.service.service.UmeService;
 public class HomeController {
 	@Autowired
 	private UmeService services;
+	
+	@Autowired
+	private UserRepository repo;
 	
 	@RequestMapping(value="/1")
 	public String redirect() {
@@ -31,9 +35,11 @@ public class HomeController {
 	}
 	
 	@GetMapping("/getUsersByaClubUnique")
-	public List<User> getUserByaUnique(String aClubUnique){
+	public List<String> getUserByaUnique(){
+		return  repo.getUsers();
+		
 				
-		return services.getUserByaClubUnique(aClubUnique);
+//		return services.getUserByaClubUnique(aClubUnique);
 	}
 	/*
 	public void send() {
