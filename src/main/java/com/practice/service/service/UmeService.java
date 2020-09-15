@@ -22,7 +22,7 @@ public class UmeService {
 
 	Map<Integer, String> map = new HashMap<Integer, String>();
 	Map<String, Integer> map2 = new HashMap<String, Integer>();
-	int totalSend;
+	int totalSend = 0;
 
 	public UmeService() {
 		map.put(1, "5815044032551KDS");
@@ -30,11 +30,11 @@ public class UmeService {
 		map.put(3, "2762212814451KDS");
 		map.put(4, "0654095798651KDS");
 		map.put(5, "7891132354851KDS");
-		map2.put("5815044032551KDS", 5);
-		map2.put("8991132354851KDS", 2);
-		map2.put("2762212814451KDS", 1);
-		map2.put("0654095798651KDS", 1);
-		map2.put("7891132354851KDS", 2);
+		map2.put("5815044032551KDS", 50);
+		map2.put("8991132354851KDS", 20);
+		map2.put("2762212814451KDS", 10);
+		map2.put("0654095798651KDS", 19);
+		map2.put("7891132354851KDS", 28);
 
 	}
 
@@ -51,53 +51,49 @@ public class UmeService {
 		return repository.findAll();
 	}
 
-	public List<User> getUserByaClubUnique(String aClubUnique) {
-		int n;
+	public List<User> findAllByOrder() {
 
+		user = repository.findAll();
 		System.out.println(map);
 		System.out.println(map2);
-
+		user = repository.findAllByOrder();
 		for (Map.Entry m : map.entrySet()) {// Traversing service map
 
 			for (Map.Entry m2 : map2.entrySet()) {// Traversing Limit map
 
-				if (((String) m.getValue()).equalsIgnoreCase((String) m2.getKey())) {// Comparing the service map index
-																						// with limit map
-					aClubUnique = (String) m.getValue();// getting club code
-					user = repository.findAllByaClubUnique(aClubUnique);
-					
-					if ((int) m2.getValue() <= user.size()) {
-						n = (int) m2.getValue();
+				if (((String) m.getValue()).equalsIgnoreCase((String) m2.getKey())) {// Comparing the service map index	with limit map
+					System.out.println("---------------------------CLUB -----"+m.getValue()+"------------------------------------------------------------");	
+					for (User u : user) {
+						if (((String) m.getValue()).equalsIgnoreCase(u.getaClubUnique())) {
 
-					} else {
-						n = user.size();
+							if (totalSend < (Integer) m2.getValue()) {
 
-					}
-					Collections.shuffle(user);// Shuffling the user for random select
-					while (totalSend < n) {
+								long check = Long.parseLong(u.getaParsedMobile());
 
-						Random rand = new Random();
-						int rnd = rand.nextInt(1000);
-						if (rnd % 2 == 0) {
-							User u = user.get(totalSend);
-							System.out.println("Club=" + aClubUnique);
-							System.out.println("Number=" + u.getaUnique());
+								if (check % 2 == 0) {
+									System.out.println("Club=" + u.getaClubUnique());
+									System.out.println("Number=" + u.getaUnique());
 
-							totalSend++;
-							System.out.println("Total Send=" + totalSend);
+									totalSend++;
+									System.out.println("Total Send=" + totalSend);
 
-							// send what ever you like
+									// send what ever you like
+
+								}
+								
+
+							}
 
 						}
 
 					}
-					totalSend = 0;
 
 				}
 
-			}
-
-		}
+			} // second for loop ends here
+			totalSend = 0;
+			//System.out.println("new Club is printing ");
+		} // first for loop ends here
 
 		return user;
 	}
