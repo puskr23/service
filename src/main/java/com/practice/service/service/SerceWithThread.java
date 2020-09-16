@@ -17,6 +17,7 @@ public class SerceWithThread {
 
     List<User> user = new ArrayList<User>();
     int totalSend = 0;
+    String res = null;
     @Autowired
     private UserRepository repository;
 
@@ -41,48 +42,51 @@ public class SerceWithThread {
 
     @Async
     String doProcess() {
-        String res = null;
+
         int messagetosend = 3;
-        List<String> proc = new ArrayList<>();
+
 
         for (User u : user) {
 
-            totalSend = doContinue(u, messagetosend);
+            res = doContinue(u, messagetosend);
 
 
         }
-        if (totalSend == 10) {
-            proc.add(" Processed :" + totalSend + " Limit:10");
-        }
-        res = "" + proc;
+
         return res;
     }
 
     @Async
-    public int doContinue(User u, int messagetosend) {
+    public String doContinue(User u, int messagetosend) {
         int sent = 0;
 
         if (totalSend < 10) {
 
-            if (sent < messagetosend) {
+            for (int i = 1; i <= messagetosend; i++) {
                 System.out.println("Club=" + u.getaClubUnique());
                 System.out.println("Number=" + u.getaUnique());
 
 
                 if (check(u)) {
                     totalSend++;
+
                     try {
-                        System.out.println("Delay 60sec");
+                        System.out.println("Delay 6sec");
                         System.out.println("User Delayed" + u);
-                        Thread.sleep(60000);
+                        Thread.sleep(6000);
                     } catch (Exception exception) {
-                        System.out.println("Total Send=" + totalSend);
+
                     }
+
                 }
+                System.out.println("Total Send=" + totalSend);
 
             }
         }
-        return totalSend;
+        if (totalSend == 10) {
+            sent = totalSend;
+        }
+        return "" + sent;
     }
 
     public boolean check(User u) {
