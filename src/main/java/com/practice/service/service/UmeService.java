@@ -72,6 +72,7 @@ public class UmeService {
 
     String doProcess() {
         String res = null;
+        int messagetosend = 3;
         List<String> proc = new ArrayList<>();
         for (Map.Entry m : map.entrySet()) {  // Traversing service map
 
@@ -80,15 +81,21 @@ public class UmeService {
                 if (((String) m.getValue()).equalsIgnoreCase((String) m2.getKey())) {// Comparing the service map index	with limit map
                     System.out.println("---------------------------CLUB -----" + m.getValue() + "------------------------------------------------------------");
                     for (User u : user) {
+                        int sent = 0;
                         if (((String) m.getValue()).equalsIgnoreCase(u.getaClubUnique())) {
 
                             if (totalSend < (Integer) m2.getValue()) {
 
-
-                                System.out.println("Club=" + u.getaClubUnique());
-                                System.out.println("Number=" + u.getaUnique());
-                                if (check(u)) {
-                                    totalSend++;
+                                if (sent < messagetosend) {
+                                    System.out.println("Club=" + u.getaClubUnique());
+                                    System.out.println("Number=" + u.getaUnique());
+                                    if (check(u)) {
+                                        totalSend++;
+                                        try {
+                                            Thread.sleep(9000);
+                                        } catch (Exception exception) {
+                                        }
+                                    }
                                 }
 
                                 System.out.println("Total Send=" + totalSend);
