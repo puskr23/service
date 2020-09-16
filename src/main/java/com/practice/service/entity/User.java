@@ -40,4 +40,14 @@ public class User {
     public void setaClubUnique(String aClubUnique) {
         this.aClubUnique = aClubUnique;
     }
+
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "aUnique='" + aUnique + '\'' +
+                ", aParsedMobile='" + aParsedMobile + '\'' +
+                ", aClubUnique='" + aClubUnique + '\'' +
+                '}';
+    }
 }

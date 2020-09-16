@@ -3,12 +3,15 @@ package com.practice.service.service;
 import com.practice.service.dao.UserRepository;
 import com.practice.service.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@EnableAsync
 public class SerceWithThread {
 
 
@@ -36,31 +39,16 @@ public class SerceWithThread {
         System.out.println(resp);
     }
 
+    @Async
     String doProcess() {
         String res = null;
         int messagetosend = 3;
         List<String> proc = new ArrayList<>();
 
         for (User u : user) {
-            int sent = 0;
 
-            if (totalSend < 10) {
+            totalSend = doContinue(u, messagetosend);
 
-                if (sent < messagetosend) {
-                    System.out.println("Club=" + u.getaClubUnique());
-                    System.out.println("Number=" + u.getaUnique());
-                    if (check(u)) {
-                        totalSend++;
-                        try {
-                            System.out.println("Delay 9sec");
-                            Thread.sleep(9000);
-                        } catch (Exception exception) {
-                            System.out.println("Total Send=" + totalSend);
-                        }
-                    }
-
-                }
-            }
 
         }
         if (totalSend == 10) {
@@ -68,6 +56,33 @@ public class SerceWithThread {
         }
         res = "" + proc;
         return res;
+    }
+
+    @Async
+    public int doContinue(User u, int messagetosend) {
+        int sent = 0;
+
+        if (totalSend < 10) {
+
+            if (sent < messagetosend) {
+                System.out.println("Club=" + u.getaClubUnique());
+                System.out.println("Number=" + u.getaUnique());
+
+
+                if (check(u)) {
+                    totalSend++;
+                    try {
+                        System.out.println("Delay 60sec");
+                        System.out.println("User Delayed" + u);
+                        Thread.sleep(60000);
+                    } catch (Exception exception) {
+                        System.out.println("Total Send=" + totalSend);
+                    }
+                }
+
+            }
+        }
+        return totalSend;
     }
 
     public boolean check(User u) {
