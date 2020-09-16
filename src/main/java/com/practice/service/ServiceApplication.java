@@ -1,5 +1,6 @@
 package com.practice.service;
 
+import com.practice.service.service.SerceWithThread;
 import com.practice.service.service.UmeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -22,8 +23,12 @@ class TestRunner implements CommandLineRunner {
 	@Autowired
 	UmeService serv;
 
+	@Autowired
+	SerceWithThread serceWithThread;
+
 	public void run(String... strings) throws Exception {
-		serv.dotask();
+		//	serv.dotask();
+		serceWithThread.dotask();
 	}
 
 }
