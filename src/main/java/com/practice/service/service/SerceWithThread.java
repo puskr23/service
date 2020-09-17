@@ -10,6 +10,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
@@ -30,16 +31,18 @@ public class SerceWithThread {
     }
 
 
-    @Scheduled(initialDelay = 2000, fixedDelay = 2000000)
+    @Scheduled(initialDelay = 2000, fixedDelay = 20000000)
     public void dotask() {
+        System.out.println("Start Time :" + new Date());
         findAllByOrder();
+        System.out.println("End Time" + new Date());
+
     }
 
     public String findAllByOrder() {
 
         user = repository.findAllByOrder();
         String resp = doProcess();
-        System.out.println(resp);
         return resp;
     }
 
@@ -48,7 +51,7 @@ public class SerceWithThread {
 
         int messagetosend = 3;
 
-        int sent;
+        int sent = 0;
 
         System.out.println("Total Size--" + user.size());
         for (User u : user) {
@@ -57,10 +60,10 @@ public class SerceWithThread {
                 doContinue(u, messagetosend);
             });
 
-
+            sent++;
 
         }
-
+        System.out.println("Total sent-" + sent);
         return res;
     }
 
@@ -73,18 +76,16 @@ public class SerceWithThread {
             for (int i = 1; i <= messagetosend; i++) {
 
 
-                if (check(u)) {
+                //if (check(u)) {
                     totalSend++;
 
                     try {
-                        System.out.println("Club=" + u.getaClubUnique());
-                        System.out.println("Number=" + u.getaUnique());
-                        System.out.println("Delay 60sec");
-                        System.out.println("User Delayed" + u);
+//
+                        System.out.println(new Date() + "----User Delayed" + u + "Delay 60sec For " + i + "-Message");
                         Thread.sleep(60000);
                     } catch (Exception exception) {
 
-                    }
+                        //  }
 
                 }
                 System.out.println("Total Send=" + totalSend);
