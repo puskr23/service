@@ -50,6 +50,7 @@ public class SerceWithThread {
 
         int sent;
 
+        System.out.println("Total Size--" + user.size());
         for (User u : user) {
             CompletableFuture.runAsync(() -> {
                 // method call or code to be asynch.
@@ -67,16 +68,17 @@ public class SerceWithThread {
     public int doContinue(User u, int messagetosend) {
         int sent = 0;
 
-        if (totalSend < 10) {
+        //if (totalSend < 10) {
 
             for (int i = 1; i <= messagetosend; i++) {
-                System.out.println("Club=" + u.getaClubUnique());
-                System.out.println("Number=" + u.getaUnique());
+
 
                 if (check(u)) {
                     totalSend++;
 
                     try {
+                        System.out.println("Club=" + u.getaClubUnique());
+                        System.out.println("Number=" + u.getaUnique());
                         System.out.println("Delay 60sec");
                         System.out.println("User Delayed" + u);
                         Thread.sleep(60000);
@@ -88,16 +90,16 @@ public class SerceWithThread {
                 System.out.println("Total Send=" + totalSend);
 
             }
-        }
-        if (totalSend == 10) {
-            sent = totalSend;
-        }
+        // }
+//        if (totalSend == 10) {
+//            sent = totalSend;
+//        }
         return sent;
     }
 
     public boolean check(User u) {
         long checkid = Long.parseLong(u.getaParsedMobile());
 
-        return checkid % 2 == 0;
+        return checkid % 3 == 0;
     }
 }
