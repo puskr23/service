@@ -24,7 +24,7 @@ public class UmeService {
     @Value("${run.dk.zone:4}")
     int zone;
 
-    List<User> user = new ArrayList<User>();
+    List<User> user = new ArrayList<>();
     Map<Integer, String> map = new HashMap<Integer, String>();
     Map<String, Integer> map2 = new HashMap<String, Integer>();
     int totalSend = 0;
